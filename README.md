@@ -23,7 +23,8 @@ Deploy your project to Vercel or GitHub Pages so the reviewer can assess your wo
 - Link to your GitHub repository containing the completed assignment.
 - Link to your deployed project on Vercel or GitHub Pages, or a screen recording/GIF of the project.
 
-### Below is an example of how it should look:
+# Below is an example of how it should look:
+![test_task_gif](https://github.com/user-attachments/assets/111262b4-3997-49ea-98aa-ebacead7cccc)
 
 ## Available Scripts
 
