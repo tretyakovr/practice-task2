@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent } from "react";
 import ThemeToggle from "./ThemeToggle";
 import "./Todo.scss";
 
@@ -29,6 +29,19 @@ const Todo: React.FC = () => {
     setTasks(tasks.filter(item => item.id !== id));
   };
 
+  const toggleTaskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let id = Number(e.currentTarget.dataset.id);
+    let index = tasks.findIndex(item => item.id === id);
+
+    let changedTask: Task[] = [{
+      id: tasks[index].id,
+      text: tasks[index].text,
+      completed: !tasks[index].completed
+    }];
+
+    setTasks(tasks.slice(0, index).concat(changedTask, tasks.slice(index + 1)));
+  }
+
   return (
     <div className='todo-container'>
       <div className='todo-header'>
@@ -53,7 +66,8 @@ const Todo: React.FC = () => {
         <ul>
           {tasks.map(item =>
           (<li key={item.id} style={{ listStyleType: 'none' }}>
-            <input type='checkbox' checked={item.completed}></input>
+            <input type='checkbox' checked={item.completed} data-id={item.id}
+              onChange={(e) => toggleTaskStatus(e)}></input>
             <span style={{ textDecoration: item.completed ? 'line-through' : '' }}>
               {item.text}
             </span>
