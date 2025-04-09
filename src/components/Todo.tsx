@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 import "./Todo.scss";
 
@@ -8,29 +8,25 @@ interface Task {
   completed: boolean;
 }
 
-let tasks: Task[] = [];
 
 const Todo: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
-
-  // useEffect(() => { }, [tasks]);
-
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Здесь добавить логику добавления задачи
-    tasks.push({
+    setTasks([...tasks, {
       id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
       text: inputValue,
       completed: false
-    });
+    }]);
     setInputValue("");
   };
 
   const deleteTask = (e: React.MouseEvent<HTMLElement>) => {
     let id = Number(e.currentTarget.dataset.id);
-    tasks = tasks.filter(item => item.id !== id);
-    console.log(tasks);
+    setTasks(tasks.filter(item => item.id !== id));
   };
 
   return (
@@ -54,15 +50,16 @@ const Todo: React.FC = () => {
       </form>
 
       <div className='tasks-list'>{/* Здесь должны отображаться задачи */}
-        {tasks.map(item =>
-        (<li key={item.id} style={{ listStyleType: 'none' }}>
-          <input type='checkbox' checked={item.completed}></input>
-          <span style={{ textDecoration: item.completed ? 'line-through' : '' }}>
-            {item.text}
-          </span>
-          <button onClick={(e) => deleteTask(e)} data-id={item.id}>x</button>
-        </li>))}
-
+        <ul>
+          {tasks.map(item =>
+          (<li key={item.id} style={{ listStyleType: 'none' }}>
+            <input type='checkbox' checked={item.completed}></input>
+            <span style={{ textDecoration: item.completed ? 'line-through' : '' }}>
+              {item.text}
+            </span>
+            <button onClick={(e) => deleteTask(e)} data-id={item.id}>x</button>
+          </li>))}
+        </ul>
       </div>
     </div >
   );
