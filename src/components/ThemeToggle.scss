@@ -1,14 +1,26 @@
+[data-theme='light'] {
+  --sun-opacity: 1;
+  --moon-opacity: 0;
+  --border: 2px solid #ddd;
+}
+
+[data-theme='dark'] {
+  --sun-opacity: 0;
+  --moon-opacity: 1;
+  --border: 2px solid #4caf50;
+}
+
 .theme-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #ffffff;
-  border: 2px solid #ddd;
+  background: var(--background-color);
+  border: var(--border);
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #333;
+  color: var(--text-color);
 
   &:hover {
     transform: scale(1.05);
@@ -34,11 +46,11 @@
 
   .sun-icon {
     fill: #ffd700;
-    opacity: 1;
+    opacity: var(--sun-opacity);
   }
 
   .moon-icon {
-    fill: #666;
-    opacity: 0;
+    fill: #fff;
+    opacity: var(--moon-opacity);
   }
 }
